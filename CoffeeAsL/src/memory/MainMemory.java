@@ -30,12 +30,30 @@ public class MainMemory implements MemoryInterface {
     
 	public MainMemory()
 	{
-		 memory = new TreeMap<Integer,Integer>();
-		 
-		 
+		memory = new TreeMap<Integer,Integer>();
+		
+		
 		//Store default values
 		this.store(operationAddress.getData(), defaultWord.getData());
-		this.store(programCounterAddress.getData(), defaultWord.getData());
+		this.setProgramCounter(0x00000100);
+		
+		//Store a print command with mask FFFFFFFF
+		this.store(0x00000100, 0x00000003);
+		this.store(0x00000101, 0x10000000);
+		this.store(0x00000102, 0xFFFFFFFF);
+		//Store another print command
+		this.store(0x00000103, 0x00000003);
+		this.store(0x00000104, 0x10000001);
+		this.store(0x00000105, 0xFFFFFFFF);
+		//Store a branch to position 0x00000100
+		this.store(0x00000106, 0x00000001);
+		this.store(0x00000107, 0x00000100);
+		this.store(0x00000108, 0x00000000);
+		
+		//Store Hello as characters
+		this.store(0x10000000, 0x48656C6C);
+		this.store(0x10000001, 0x6F21210D);
+
 	}
 	
 	@Override
@@ -80,8 +98,13 @@ public class MainMemory implements MemoryInterface {
 
 	
 	public Word getNextValue() {
-		Integer retVal = this.read(programCounterAddress.getData());
-		this.store(programCounterAddress.getData(), retVal);
+		Integer pc = this.read(programCounterAddress.getData());
+		Integer retVal = this.read(pc);
+		this.setProgramCounter(pc + 1);
 		return new Word(retVal);
+	}
+
+	public String getProgramCounter() {
+		return this.read(programCounterAddress.getData()).toString();
 	}
 }

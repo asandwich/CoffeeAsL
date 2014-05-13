@@ -39,7 +39,7 @@ public class MainProcessor {
 	
 	public static void main(String[] args)
 	{
-		test(null);
+		//test(null);
 		MainProcessor mp = new MainProcessor();
 		mp.run();
 	}
@@ -52,6 +52,7 @@ public class MainProcessor {
 		
 		while(true)
 		{
+			//main_memory.dumpMemory();
 			Word instruction = main_memory.getNextValue();
 			Word left = main_memory.getNextValue();
 			Word right = main_memory.getNextValue();
@@ -59,5 +60,4 @@ public class MainProcessor {
 			operation.run(main_memory);
 		}
 	}
-	
 }

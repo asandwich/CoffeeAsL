@@ -5,7 +5,7 @@ import memory.MemoryInterface;
 import memory.Word;
 
 public class Branch extends Operation{
-	Branch(Word addr, Word compareValue)
+	public Branch(Word addr, Word compareValue)
 	{
 		opCode = 1;
 		this.left = addr;
