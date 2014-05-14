@@ -14,8 +14,8 @@ public class StoreWordIndirect extends Operation {
 	
 	@Override
 	public void run(MemoryInterface memory) {
-		Integer value = memory.read(right.getData());
-		memory.store(left.getData(), value);
+		Word value = memory.read(right);
+		memory.store(left, value);
 	}
 	@Override
 	public Integer getOpCode() {

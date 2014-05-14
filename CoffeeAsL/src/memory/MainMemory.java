@@ -34,39 +34,32 @@ public class MainMemory implements MemoryInterface {
 		
 		
 		//Store default values
-		this.store(operationAddress.getData(), defaultWord.getData());
-		this.setProgramCounter(0x00000100);
+		this.store(operationAddress, defaultWord);
+		this.setProgramCounter(new Word(0x00000100));
 		
 		//Store a print command with mask FFFFFFFF
-		this.store(0x00000100, 0x00000003);
-		this.store(0x00000101, 0x10000000);
-		this.store(0x00000102, 0xFFFFFFFF);
+		this.store(new Word(0x00000100), new Word(0x00000003));
+		this.store(new Word(0x00000101), new Word(0x10000000));
+		this.store(new Word(0x00000102), new Word(0xFFFFFFFF));
 		//Store another print command
-		this.store(0x00000103, 0x00000003);
-		this.store(0x00000104, 0x10000001);
-		this.store(0x00000105, 0xFFFFFFFF);
+		this.store(new Word(0x00000103), new Word(0x00000003));
+		this.store(new Word(0x00000104), new Word(0x10000001));
+		this.store(new Word(0x00000105), new Word(0xFFFFFFFF));
 		//Store a branch to position 0x00000100
-		this.store(0x00000106, 0x00000001);
-		this.store(0x00000107, 0x00000100);
-		this.store(0x00000108, 0x00000000);
+		this.store(new Word(0x00000106), new Word(0x00000001));
+		this.store(new Word(0x00000107), new Word(0x00000100));
+		this.store(new Word(0x00000108), new Word(0x00000000));
 		
 		//Store Hello as characters
-		this.store(0x10000000, 0x48656C6C);
-		this.store(0x10000001, 0x6F21210D);
-
+		this.store(new Word(0x10000000), new Word(0x48656C6C));
+		this.store(new Word(0x10000001), new Word(0x6F21210D));
+		
 	}
 	
-	@Override
-	public boolean store(Integer addr, Integer value) {
-		memory.put(addr, value);
-		//TODO at some point, memory checking needs to happen
-		//I.e. out of bounds, stuff like that.
-		return true;
-	}
 
 	@Override
-	public Integer read(Integer addr) {
-		return memory.get(addr);
+	public Word read(Word address) {
+		return new Word(memory.get(address.getData()));
 	}
 
 	@Override
@@ -82,29 +75,41 @@ public class MainMemory implements MemoryInterface {
 	}
 
 	@Override
-	public void setProgramCounter(Integer data) {
-		this.store(programCounterAddress.getData(), data);
+	public void setProgramCounter(Word data) {
+		this.store(programCounterAddress, data);
 	}
 
 	@Override
-	public void storeOperationResult(Integer data) {
-		this.store(operationAddress.getData(),data);
+	public void storeOperationResult(Word data) {
+		this.store(operationAddress,data);
 	}
 
 	@Override
-	public Integer getOperationResult() {
-		return this.read(operationAddress.getData());
+	public Word getOperationResult() {
+		return this.read(operationAddress);
 	}
 
 	
 	public Word getNextValue() {
-		Integer pc = this.read(programCounterAddress.getData());
-		Integer retVal = this.read(pc);
-		this.setProgramCounter(pc + 1);
-		return new Word(retVal);
+		Word pc = this.read(programCounterAddress);
+		Word retVal = this.read(pc);
+		this.setProgramCounter( new Word(pc.getData() + 1));
+		return retVal;
 	}
 
 	public String getProgramCounter() {
-		return this.read(programCounterAddress.getData()).toString();
+		return this.read(programCounterAddress).toString();
 	}
+
+	
+	@Override
+	public void store(Word address, Word value) {
+		memory.put(address.getData(), value.getData());
+		//TODO at some point, memory checking needs to happen
+		//I.e. out of bounds, stuff like that.
+	}
+	
+	
+	
+	
 }

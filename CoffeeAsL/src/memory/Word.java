@@ -5,7 +5,10 @@ import java.nio.ByteBuffer;
 public class Word implements WordInterface {
 	private Integer data;
 	
-	
+	public Word(Word w)
+	{
+		this.data = w.data;
+	}
 	public Word(Integer i) {
 		data = i;
 	}
@@ -34,5 +37,20 @@ public class Word implements WordInterface {
 	
 	private String fixedLenthString(String string, int length) {
 	    return String.format("%1$" + length + "s", string);
+	}
+
+	@Override
+	public boolean equals(Object object)
+	{
+		if (object == null)
+            return false;
+        if (object == this)
+            return true;
+        if (!(object instanceof Word))
+            return false;
+        
+        Word other = (Word)object;
+        return this.data == other.data;
+        
 	}
 }

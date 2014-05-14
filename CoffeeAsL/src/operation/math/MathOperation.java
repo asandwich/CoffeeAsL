@@ -17,7 +17,7 @@ public abstract class MathOperation extends Operation {
 	}
 	@Override
 	public void run(MemoryInterface memory) {
-		memory.storeOperationResult(this.getResult().getData());
+		memory.storeOperationResult(this.getResult());
 	}
 
 }

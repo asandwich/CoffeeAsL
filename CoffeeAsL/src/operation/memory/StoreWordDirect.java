@@ -13,7 +13,7 @@ public class StoreWordDirect extends Operation{
 
 	@Override
 	public void run(MemoryInterface memory) {
-		memory.store(left.getData(), right.getData());
+		memory.store(left, right);
 	}
 	@Override
 	public Integer getOpCode() {

@@ -15,8 +15,8 @@ public class Branch extends Operation{
 	
 	@Override
 	public void run(MemoryInterface memory) {
-		if(this.right.getData() == memory.getOperationResult());
-			memory.setProgramCounter(this.left.getData());
+		if(this.right.equals(memory.getOperationResult()))
+			memory.setProgramCounter(this.left);
 	}
 
 

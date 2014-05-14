@@ -13,7 +13,7 @@ public class Print extends Operation{
 	
 	@Override
 	public void run(MemoryInterface memory) {
-		Word value = new Word(memory.read(left.getData()));
+		Word value = memory.read(left);
 		
 		for(int i = 24; i >= 0; i-=8)
 		{

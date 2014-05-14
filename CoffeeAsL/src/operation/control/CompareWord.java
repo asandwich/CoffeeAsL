@@ -13,9 +13,9 @@ public class CompareWord extends Operation{
 
 	@Override
 	public void run(MemoryInterface memory) {
-		Integer l = memory.read(this.left.getData());
-		Integer r = memory.read(this.right.getData());
-		Integer result = l == r ? 0x00000001 : 0x00000000;
+		Word l = memory.read(this.left);
+		Word r = memory.read(this.right);
+		Word result = l.equals(r) ? new Word(0x00000001) : new Word(0x00000000);
 		memory.storeOperationResult(result);
 	}
 

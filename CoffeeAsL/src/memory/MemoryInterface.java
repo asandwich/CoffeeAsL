@@ -7,13 +7,13 @@ public interface MemoryInterface {
 	
 	
 	
-	public boolean store(Integer addr, Integer value);
-	public Integer read(Integer addr);
+	public void store(Word addr, Word value);
+	public Word read(Word addr);
 	public void dumpMemory();
 	
 	//Special accesses
-	public void setProgramCounter(Integer data);
-	public void storeOperationResult(Integer data);
-	public Integer getOperationResult();
+	public void setProgramCounter(Word data);
+	public void storeOperationResult(Word data);
+	public Word getOperationResult();
 	public Word getNextValue();
 }
