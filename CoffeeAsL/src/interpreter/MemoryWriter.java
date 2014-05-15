@@ -46,4 +46,25 @@ public class MemoryWriter {
 	{
 		return mainMemory;
 	}
+
+
+
+
+	public static void main(String[] args)
+	{
+		MemoryWriter mw = new MemoryWriter();
+		ArrayList<WordTuple> memory = new ArrayList<>();
+		memory.add(new WordTuple(new Word(0x1000003), new Word(0x9123333)));
+		memory.add(new WordTuple(new Word(0x1000004), new Word(0x9124333)));
+		memory.add(new WordTuple(new Word(0x1000005), new Word(0x91223123)));
+		memory.add(new WordTuple(new Word(0x1000006), new Word(0x912a433)));
+		
+		
+		try {
+			mw.writeToMemory(memory);
+		} catch (RepeatedAddressException | MisMatchedPairException e) {
+			e.printStackTrace();
+		}
+		mw.getMainMemory().dumpMemory();
+	}
 }

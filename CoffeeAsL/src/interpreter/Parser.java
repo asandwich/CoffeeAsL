@@ -32,24 +32,24 @@ public class Parser {
 	
 	//Isolate a region.
 	//Throw errors if you find problems
-	//
+	//return the parsed regions
 	public ArrayList<WordTuple> parseData()
 	{
-		return null;
+		return output;
 	}
 	
 	
 	
-	
-	public ArrayList<WordTuple> parseRegion(ArrayList<String> rawData, Word address)
+	//TODO throw a LOT of errors
+	private void parseRegion(ArrayList<String> rawData, Word address)
 	{
 		
-		ArrayList<WordTuple> retVal = new ArrayList<>();
+		ArrayList<WordTuple> region = new ArrayList<>();
 		for(String s : this.rawData)
 		{
-			retVal.addAll(parseLine(s, address));
+			region.addAll(parseLine(s, address));
 		}
-		return retVal;
+		output.addAll(region);
 	}
 
 
@@ -85,15 +85,15 @@ public class Parser {
 		String c = "0x00000006 0x000000007 0x00000008;";
 		String d = "0x00000009 0x00000000A 0x0000000B;";
 		String e = "0x0000000C 0x00000000D 0x0000000E;";
-		ArrayList<String> temp = new ArrayList<>();
-		temp.add(a);
-		temp.add(b);
-		temp.add(c);
-		temp.add(d);
-		temp.add(e);
-		Parser p = new Parser(temp);
-		ArrayList<WordTuple> output = p.parseRegion(temp, new Word(0x10000000));
-		for(WordTuple o : output)
+		ArrayList<String> region = new ArrayList<>();
+		region.add(a);
+		region.add(b);
+		region.add(c);
+		region.add(d);
+		region.add(e);
+		Parser p = new Parser(region);
+		p.parseRegion(region, new Word(0x10000000));
+		for(WordTuple o : p.parseData())
 			System.out.println(o.toString());
 	}
 	

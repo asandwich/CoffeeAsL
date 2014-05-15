@@ -7,10 +7,16 @@ public class Word implements WordInterface {
 	
 	public Word(Word w)
 	{
-		this.data = w.data;
+		if(w!=null && w.getData() != null)
+			this.data = w.data;
+		else
+			this.data = 0x00000000;
 	}
 	public Word(Integer i) {
-		data = i;
+		if(i != null)
+			this.data = i;
+		else
+			this.data = 0x00000000;
 	}
 
 	//This is where a word will be processed

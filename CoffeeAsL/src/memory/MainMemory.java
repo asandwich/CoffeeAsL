@@ -36,30 +36,13 @@ public class MainMemory implements MemoryInterface {
 		//Store default values
 		this.store(operationAddress, defaultWord);
 		this.setProgramCounter(new Word(0x00000100));
-		
-		//Store a print command with mask FFFFFFFF
-		this.store(new Word(0x00000100), new Word(0x00000003));
-		this.store(new Word(0x00000101), new Word(0x10000000));
-		this.store(new Word(0x00000102), new Word(0xFFFFFFFF));
-		//Store another print command
-		this.store(new Word(0x00000103), new Word(0x00000003));
-		this.store(new Word(0x00000104), new Word(0x10000001));
-		this.store(new Word(0x00000105), new Word(0xFFFFFFFF));
-		//Store a branch to position 0x00000100
-		this.store(new Word(0x00000106), new Word(0x00000001));
-		this.store(new Word(0x00000107), new Word(0x00000100));
-		this.store(new Word(0x00000108), new Word(0x00000000));
-		
-		//Store Hello as characters
-		this.store(new Word(0x10000000), new Word(0x48656C6C));
-		this.store(new Word(0x10000001), new Word(0x6F21210D));
-		
 	}
 	
 
 	@Override
 	public Word read(Word address) {
-		return new Word(memory.get(address.getData()));
+		Word retVal = new Word(this.memory.get(address.getData()));
+		return retVal!=null ? retVal : this.defaultWord;
 	}
 
 	@Override
@@ -110,6 +93,28 @@ public class MainMemory implements MemoryInterface {
 	}
 	
 	
-	
+	public void demo()
+	{
+		//Store default values
+		this.store(operationAddress, defaultWord);
+		this.setProgramCounter(new Word(0x00000100));
+		
+		//Store a print command with mask FFFFFFFF
+		this.store(new Word(0x00000100), new Word(0x00000003));
+		this.store(new Word(0x00000101), new Word(0x10000000));
+		this.store(new Word(0x00000102), new Word(0xFFFFFFFF));
+		//Store another print command
+		this.store(new Word(0x00000103), new Word(0x00000003));
+		this.store(new Word(0x00000104), new Word(0x10000001));
+		this.store(new Word(0x00000105), new Word(0xFFFFFFFF));
+		//Store a branch to position 0x00000100
+		this.store(new Word(0x00000106), new Word(0x00000001));
+		this.store(new Word(0x00000107), new Word(0x00000100));
+		this.store(new Word(0x00000108), new Word(0x00000000));
+		
+		//Store Hello as characters
+		this.store(new Word(0x10000000), new Word(0x48656C6C));
+		this.store(new Word(0x10000001), new Word(0x6F21210D));
+	}
 	
 }
