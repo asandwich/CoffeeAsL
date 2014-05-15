@@ -18,7 +18,13 @@ public class MemoryWriter {
 	//	Verify that no address is being written to twice
 	
 	private MainMemory mainMemory;
-	public MemoryWriter(ArrayList<WordTuple> memory) throws RepeatedAddressException, MisMatchedPairException
+	public MemoryWriter() 
+	{
+		//TODO This is where memory will be customized. I.e.
+		//Creating a (initialization file) RAM/ROM length, stuff like that
+	}
+	
+	public void writeToMemory(ArrayList<WordTuple> memory) throws RepeatedAddressException, MisMatchedPairException
 	{
 		HashSet<Word> addresses = new HashSet<>();
 		
